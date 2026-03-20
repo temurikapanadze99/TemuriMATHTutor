@@ -751,3 +751,29 @@ img, .image-placeholder {
     max-width: 100%;
     height: auto;
 }
+
+/* Confirmation message - clean centered text */
+.confirmation-message {
+    text-align: center;
+    margin: 30px auto;
+    max-width: 600px;
+}
+
+.confirmation-message h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #149148; /* green, matches your submit button */
+}
+
+.confirmation-message p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #1e2b3c; /* dark gray/black for body text */
+}
+
+.confirmation-message .signature {
+    margin-top: 20px;
+    font-style: italic;
+    color: #1e2b3c; /* keep signature black, or you can make it green if you prefer */
+}
