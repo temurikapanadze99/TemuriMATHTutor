@@ -432,7 +432,7 @@ section { padding: 88px 0; }
 .gallery-grid {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: 240px 240px;
     gap: 14px;
 }
 
@@ -455,8 +455,8 @@ section { padding: 88px 0; }
     transition: transform 0.4s ease;
 }
 
-.gallery-item-large img { min-height: 400px; }
-.gallery-item:not(.gallery-item-large) img { height: 200px; }
+.gallery-item-large img { min-height: 340px; }
+.gallery-item:not(.gallery-item-large) img { height: 100%; min-height: 200px; }
 
 .gallery-item:hover img { transform: scale(1.03); }
 
@@ -821,6 +821,16 @@ footer {
 
     .hero-text { flex: 1.25; }
     .hero-stats { flex: 0.8; }
+
+    .gallery-caption {
+        background: transparent;
+        padding: 12px 16px 12px;
+    }
+
+    .gallery-item:not(.gallery-item-large) .gallery-caption {
+        background: transparent;
+        color: white;
+    }
 }
 
 @media (max-width: 899px) {
