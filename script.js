@@ -1,4 +1,6 @@
-// Smooth scroll for anchor links
+// ===== JAYmath Tutoring — script.js =====
+
+// Smooth scroll for all anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -9,61 +11,60 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Handle contact form submission via AJAX (no redirect)
+// Header scroll shadow
+const header = document.querySelector('header');
+if (header) {
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+}
+
+// Contact form — AJAX submission via Formspree (no page redirect)
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
-        e.preventDefault(); // Stop default form submission (prevents redirect)
+        e.preventDefault();
 
         const form = e.target;
         const formData = new FormData(form);
-        const submitButton = form.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.textContent;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
 
-        // Show loading state
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
 
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-                // Success: hide the form and show a custom message
+                // Replace the entire contact section content with a confirmation
                 const contactSection = document.getElementById('contact');
-                const container = form.closest('.container');
-
-                // Create confirmation message
-                const confirmationDiv = document.createElement('div');
-                confirmationDiv.className = 'confirmation-message';
-                confirmationDiv.innerHTML = `
-                    <h3>Thank you!</h3>
-                    <p>Your request has been sent. We will get back to you within 24 hours.</p>
-                    <p class="signature">— Temuri Kapanadze (TJ)</p>
+                const container = contactSection.querySelector('.container');
+                container.innerHTML = `
+                    <div class="confirmation-message">
+                        <h3>You're all set! 🎉</h3>
+                        <p>Your request has been received. We'll reach out within 24 hours to confirm your spot and answer any questions.</p>
+                        <p class="signature">— Temuri (TJ) &nbsp;·&nbsp; JAYmath Tutoring</p>
+                    </div>
                 `;
-
-                // Replace form with confirmation
-                form.style.display = 'none';
-                container.appendChild(confirmationDiv);
             } else {
-                // Handle error
-                const errorData = await response.json();
-                alert('Oops! Something went wrong: ' + (errorData.error || 'Please try again later.'));
-                // Reset button
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
+                const errorData = await response.json().catch(() => ({}));
+                alert('Oops! Something went wrong: ' + (errorData.error || 'Please try again or call us directly.'));
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
-        } catch (error) {
-            alert('Network error. Please check your connection and try again.');
-            submitButton.disabled = false;
-            submitButton.textContent = originalButtonText;
+
+        } catch (err) {
+            alert('Network error. Please check your connection and try again, or call us at (929) 403-4048.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
         }
     });
 }
 
-console.log("Temuri MATH Tutor site loaded");
+console.log('JAYmath Tutoring site loaded.');
