@@ -843,9 +843,12 @@ footer {
         grid-template-rows: auto;
     }
 
-    .gallery-item-large { grid-row: auto; }
+    .gallery-item-large { grid-row: auto; min-height: auto; }
     .gallery-item-large img,
-    .gallery-item:not(.gallery-item-large) img { height: 260px; }
+    .gallery-item:not(.gallery-item-large) img {
+        height: 260px;
+        min-height: 260px;
+    }
 
     body { padding-bottom: 82px; }
 }
